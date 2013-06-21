@@ -2,8 +2,8 @@ VERSION = 1.0.27
 TOP = .
 SUBDIRS = as10k1 envy24control hdsploader hdspconf hdspmixer \
 	  mixartloader pcxhrloader rmedigicontrol sb16_csp seq sscape_ctl \
-	  us428control usx2yloader vxloader echomixer ld10k1 qlo10k1 \
-	  hwmixvolume hdajackretask hda-verb
+	  us428control usx2yloader vxloader echomixer ld10k1 \
+	  hwmixvolume hda-verb
 
 all:
 	@for i in $(SUBDIRS); do \
@@ -43,5 +43,8 @@ alsa-dist:
 	@mv alsa-tools-$(VERSION) distdir
 
 clean:
-	rm -rf *~ distdir
-	@for i in $(SUBDIRS); do make -C $$i clean || exit 1; done
+	rm -rf *~ distdir ac3dec/test/*.o
+	@for i in $(SUBDIRS); do make -C $$i clean || true; done
+
+distclean: clean
+	@for i in $(SUBDIRS); do make -C $$i distclean || true; done
